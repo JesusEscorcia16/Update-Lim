@@ -152,10 +152,11 @@ public class Database {
             output = new FileOutputStream(file);
 
             if (r.next()) {
-                blob = r.getBlob("jar");
-                input = blob.getBinaryStream();
+                input = r.getBinaryStream("jar");
                 byte[] buffer = new byte[1024];
-                FileManager.SaveData(input, "Lim.jar");
+                while (input.read(buffer) > 0) {                    
+                    output.write(buffer);
+                }
             }
         } catch (Exception e) {
             e.getMessage();
